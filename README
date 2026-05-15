@@ -1,0 +1,67 @@
+# 🎲 Mega-Sena API + Frontend
+
+Projeto full stack para consulta de resultados da Mega-Sena e verificação de palpites.
+
+O sistema permite:
+- Consultar o último concurso
+- Buscar concurso específico
+- Conferir palpites e calcular acertos (4, 5 e 6 números)
+- Exibir resultados em interface web
+
+---
+
+## 🚀 Tecnologias utilizadas
+
+### Backend
+- Node.js
+- Express
+- PostgreSQL (pg)
+- REST API
+
+### Frontend
+- HTML5
+- CSS3
+- JavaScript (Vanilla)
+
+---
+
+## 📊 Funcionalidades
+
+### 🔎 Consulta de concursos
+- Último concurso
+- Concurso por número
+
+### 🎯 Conferência de palpite
+- Envio de 6 a 12 dezenas
+- Comparação com histórico de sorteios
+- Contagem de:
+  - 4 acertos
+  - 5 acertos
+  - 6 acertos
+
+---
+
+## 🗄️ Estrutura do banco
+
+Tabela: `megasena`
+
+Campos esperados:
+
+- concurso (int)
+- data_do_sorteio (date)
+- bola1 a bola6 (int)
+- ganhadores_4_acertos (int)
+- ganhadores_5_acertos (int)
+- ganhadores_6_acertos (int)
+- rateio_4_acertos (numeric)
+- rateio_5_acertos (numeric)
+- rateio_6_acertos (numeric)
+- estimativa_premio (numeric)
+
+---
+
+## ⚙️ Como rodar o projeto
+
+### 1. Clonar o repositório
+```bash
+git clone https://github.com/seu-usuario/megasena.git

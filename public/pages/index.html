@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="https://www.cps.sp.gov.br/favicon.ico" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mega-Sena</title>
+  </head>
+  <body>
+    <main class="page">
+      <section class="panel">
+        <div>
+          <h1>Mega-Sena</h1>
+          <p>Consulte o último resultado ou busque por concurso.</p>
+        </div>
+
+        <form class="search" id="search-form">
+          <label for="concurso-input">Concurso</label>
+          <div class="search-row">
+            <input
+              id="concurso-input"
+              name="concurso"
+              inputmode="numeric"
+              placeholder="Ex.: 2840"
+            />
+            <button type="submit" id="button-search">Buscar</button>
+          </div>
+        </form>
+
+        <section class="result" id="result"></section>
+      </section>
+        <section class="panel">
+        <div>
+          <h1>Palpite Mega-Sena</h1>
+          <p>Consulte o último resultado ou busque por concurso.</p>
+        </div>
+
+        <form class="search" id="palpite-form">
+          <label for="palpite-input">Dezenas</label>
+          <div class="palpite-row">
+            <input
+              id="palpite-input"
+              name="palpite"
+              inputmode="numeric"
+              placeholder="Ex.: 10 20 30 40 50 60 até 12 dezenas"
+            />
+            <button type="submit" id="button-palpite">Buscar</button>
+          </div>
+        </form>
+
+        <section class="result" id="palpite-result"></section>
+      </section>
+    </main>
+
+    <script src="/assets/js/main.js"></script>
+  </body>
+</html>
