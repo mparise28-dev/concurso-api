@@ -48,7 +48,7 @@ function renderDraw(data) {
       <header class="draw-header">
         <div>
           <h2 class="draw-title">Concurso ${data.concurso}</h2>
-          <span class="draw-date">${formatDate(data.data_do_sorteo)}</span>
+          <span class="draw-date">${formatDate(data.data_do_sorteio)}</span>
         </div>
         <strong>
           ${Number(data.ganhadores_6_acertos) == 0 ? "Acumulou" : "Teve ganhador"}
