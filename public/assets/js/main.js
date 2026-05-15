@@ -1,5 +1,5 @@
 // ===== CONFIGURAÇÃO DA API =====
-const API_URL = 'https://concurso-api.onrender.com/api';
+const API_URL = 'https://concurso-api-o0pu.onrender.com/api';  // 
 
 // ===== ELEMENTOS DO DOM =====
 const form = document.querySelector("#search-form");
