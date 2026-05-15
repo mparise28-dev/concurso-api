@@ -1,7 +1,3 @@
-// ===== CONFIGURAÇÃO DA API =====
-const API_URL = 'https://concurso-api-o0pu.onrender.com/api';  // 
-
-// ===== ELEMENTOS DO DOM =====
 const form = document.querySelector("#search-form");
 const input = document.querySelector("#concurso-input");
 const button = form.querySelector("#button-search");
@@ -12,7 +8,6 @@ const inputPalpite = document.querySelector("#palpite-input");
 const resultPalpite = document.querySelector("#palpite-result");
 const buttonPalpite = formPalpite.querySelector("#button-palpite");
 
-// ===== FUNÇÕES AUXILIARES =====
 function formatDate(value) {
   const [year, month, day] = String(value).split("T")[0].split("-");
   return `${day}/${month}/${year}`;
@@ -37,11 +32,6 @@ function setMessagePalpite(message) {
     `;
 }
 
-function delay(milliseconds) {
-  return new Promise((resolve) => setTimeout(resolve, milliseconds));
-}
-
-// ===== RENDERIZAÇÃO DOS DADOS =====
 function renderDraw(data) {
   result.innerHTML = `
     <article class="draw">
@@ -84,6 +74,33 @@ function renderDraw(data) {
   `;
 }
 
+async function loadConcurso(concurso = "") {
+  const endpoint = concurso ? `/api/${concurso}` : "/api";
+  button.disabled = true;
+  setMessage("Carregando...");
+
+  await delay(2000);
+
+  try {
+    const response = await fetch(endpoint);
+    const data = await response.json();
+    if (!response.ok) {
+      setMessage("Não foi possível conectar à API");
+      return;
+    }
+    renderDraw(data);
+  } catch (error) {
+    setMessage("Não foi possível conectar à API");
+  } finally {
+    button.disabled = false;
+  }
+}
+
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+  loadConcurso(input.value.trim());
+});
+
 function renderPalpite(data) {
   let bolas = "";
   for (const bola of data.palpite) {
@@ -117,31 +134,6 @@ function renderPalpite(data) {
   `;
 }
 
-// ===== FUNÇÕES DA API (CORRIGIDAS) =====
-async function loadConcurso(concurso = "") {
-  // 🔧 CORRIGIDO: usa API_URL completa
-  const endpoint = concurso ? `${API_URL}/${concurso}` : API_URL;
-  button.disabled = true;
-  setMessage("Carregando...");
-
-  await delay(2000);
-
-  try {
-    const response = await fetch(endpoint);
-    const data = await response.json();
-    if (!response.ok) {
-      setMessage("Não foi possível conectar à API");
-      return;
-    }
-    renderDraw(data);
-  } catch (error) {
-    console.error("Erro:", error);
-    setMessage("Não foi possível conectar à API");
-  } finally {
-    button.disabled = false;
-  }
-}
-
 async function conferePalpite(numeros) {
   const numerosString = numeros
     .replace(/\s/g, ",")
@@ -164,8 +156,7 @@ async function conferePalpite(numeros) {
   }
 
   const numerosQuery = dezenas.join(",");
-  // 🔧 CORRIGIDO: usa API_URL completa
-  const endpoint = `${API_URL}/palpite?numeros=${numerosQuery}`;
+  const endpoint = `/api/palpite?numeros=${numerosQuery}`;
 
   buttonPalpite.disabled = true;
   setMessagePalpite("Carregando...");
@@ -185,23 +176,19 @@ async function conferePalpite(numeros) {
 
     renderPalpite(data);
   } catch (error) {
-    console.error("Erro:", error);
     setMessagePalpite("Não foi possível conectar à API.");
   } finally {
     buttonPalpite.disabled = false;
   }
 }
 
-// ===== EVENT LISTENERS =====
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-  loadConcurso(input.value.trim());
-});
-
 formPalpite.addEventListener("submit", function (event) {
   event.preventDefault();
   conferePalpite(inputPalpite.value.trim());
 });
 
-// ===== INICIALIZAÇÃO =====
 loadConcurso();
+
+function delay(milliseconds) {
+  return new Promise((resolve) => setTimeout(resolve, milliseconds));
+}
